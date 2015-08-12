@@ -1,0 +1,10 @@
+{
+	"baseName": "slimproject",
+	"databaseType": "mysql",
+	"hostName": "localhost",
+	"databaseName": "slim_project",
+	"userName": "root",
+	"password": "password",
+	"entities": [],
+	"composer": true
+}
