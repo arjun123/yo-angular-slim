@@ -82,6 +82,33 @@ $app->post('/add', function() use ($app){
 	}
 });
 
+$app->put('/edit/:id', function ($id) {
+    echo $id;die;
+    //Update book identified by $id
+    /*
+    $request = \Slim\Slim::getInstance()->request();
+    $body = $request->getBody();
+    $post = json_decode($body);
+    $sql = "UPDATE posts SET title=:title, author=:author, intro=:intro, extended=:extended WHERE id=:id";
+    try {
+       $db = connection();
+       $stmt = $db->prepare($sql);
+       $stmt->execute(array(
+           ":title" => $post->title,
+           ":author" => $post->author,
+           ":intro" => $post->intro,
+           ":extended" => $post->extended,
+           ":id" => $id
+       ));
+       $db = null;
+       echo json_encode($post);
+
+    } catch (PDOException $e) {
+       echo '{"error":{"text": '. $e->getMessage() .'}}';
+    }
+    */
+});
+
 $app->run();
 function getConnection() {
   $dbhost="127.0.0.1";

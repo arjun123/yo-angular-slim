@@ -20,5 +20,8 @@ angular.module('slimproject', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date
         .when('/add', {
           templateUrl: 'views/user/add-user.html',
           controller: 'AddController'})
+        .when('/edit', {
+          templateUrl: 'views/user/edit.html',
+          controller: 'EditController'})
       .otherwise({redirectTo: '/'});
   }]);

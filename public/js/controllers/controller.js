@@ -26,13 +26,10 @@ angular.module('slimproject')
     $scope.news = "News Comming soon";
 }]);
 angular.module('slimproject')
-.controller('UserController', ['$scope', '$http', function ($scope, $http) {
-    $http({
-        url: '/users',
-        method: "GET",
-        params: {}
-    }).success(function(data, status, headers, config) {
-        $scope.users = data;
+.controller('EditController', ['$scope', '$http', function ($scope, $http) {
+    $http.post('/edit/:id', 1).success(function(){
+      $scope.reset();
+      $scope.activePath = $location.path('/users');
     });
 }]);
 angular.module('slimproject')
