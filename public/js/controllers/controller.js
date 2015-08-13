@@ -25,23 +25,88 @@ angular.module('slimproject')
 .controller('NewsController', ['$scope', function ($scope) {
     $scope.news = "News Comming soon";
 }]);
+//add routeParams , location for edit part
+// edit part is moved in this section from edit controller
 angular.module('slimproject')
-.controller('UserController', ['$scope', '$http', function ($scope, $http) {
-    $http({
-        url: '/users',
-        method: "GET",
-        params: {}
-    }).success(function(data, status, headers, config) {
-        $scope.users = data;
-    });
+.controller('UserController', ['$scope', '$http', '$resource', '$route', function ($scope, $http, $resource, $route) {
+    // prepare for ajaxcall to route /users
+    var Users = $resource('/users');
+
+    // Get Users data from API
+    $scope.users = Users.query();
+    /*alternative of above two line
+    // $http({
+    //     url: '/users',
+    //     method: "GET",
+    //     params: {}
+    // }).success(function(data, status, headers, config) {
+    //     $scope.users = data;
+    // });
+    */
+    //update part is come from EditController and it is commented now
+    // userId = $routeParams.id;
+    // $scope.updateUser = function() {
+    //     var User = $resource('/edit/:id', { id: userId }, { update: { method:'PUT' } });
+    //
+    //     User.update($scope.user,
+    //         function(data) {
+    //             console.log(data);
+    //             // success
+    //             $location.path('/users');
+    //         },
+    //         function(error) {
+    //             // error
+    //             console.log(error);
+    //         }
+    //     );
+    // }
+    // Delete a User then relaod view
+    $scope.deleteUser = function(userId) {
+
+        var User = $resource('/users/:id', { id: userId });
+
+        User.delete(
+            function() {
+                // success
+                $route.reload();
+            },
+            function(error) {
+                // error
+                console.log(error);
+            }
+        );
+    }
+
 }]);
+
 angular.module('slimproject')
-.controller('EditController', ['$scope', '$http', function ($scope, $http) {
-    $http.post('/edit/:id', 1).success(function(){
-      $scope.reset();
-      $scope.activePath = $location.path('/users');
-    });
+.controller('EditController', ['$routeParams', '$resource', '$scope', '$http', '$location', '$window', function ($routeParams, $resource, $scope, $http, $location, $window) {
+    var userId = $routeParams.id;
+    console.log('user id:'+userId);
+    //triger while clicking update button
+    $scope.updateUser = function() {
+        var User = $resource('/edit/:id', { id: userId }, { update: { method:'PUT' } });
+
+        User.update($scope.user,
+            function(data) {
+                console.log(data);
+                // success
+                $location.path('/users');
+            },
+            function(error) {
+                // error
+                console.log(error);
+            }
+        );
+    }
+
+    // $http.put('/edit/:id', 1).success(function(data) {
+    //     console.log(data);
+    // //   $scope.reset();
+    // //   $scope.activePath = $location.path('/users');
+    // });
 }]);
+
 angular.module('slimproject')
 .controller('AddController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     $scope.master = {};

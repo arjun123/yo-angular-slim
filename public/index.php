@@ -83,30 +83,44 @@ $app->post('/add', function() use ($app){
 });
 
 $app->put('/edit/:id', function ($id) {
-    echo $id;die;
+
     //Update book identified by $id
-    /*
+
     $request = \Slim\Slim::getInstance()->request();
     $body = $request->getBody();
-    $post = json_decode($body);
-    $sql = "UPDATE posts SET title=:title, author=:author, intro=:intro, extended=:extended WHERE id=:id";
+    $user = json_decode($body);
+
+    $sql = "UPDATE users SET username=:username, first_name=:first_name, last_name=:last_name, address=:address WHERE id=:id";
     try {
-       $db = connection();
+       $db = getConnection();
        $stmt = $db->prepare($sql);
        $stmt->execute(array(
-           ":title" => $post->title,
-           ":author" => $post->author,
-           ":intro" => $post->intro,
-           ":extended" => $post->extended,
+           ":username" => $user->username,
+           ":first_name" => $user->first_name,
+           ":last_name" => $user->last_name,
+           ":address" => $user->address,
            ":id" => $id
        ));
        $db = null;
-       echo json_encode($post);
+       echo json_encode($user);
 
     } catch (PDOException $e) {
        echo '{"error":{"text": '. $e->getMessage() .'}}';
     }
-    */
+
+});
+
+$app->delete('/users/:id', function($id) {
+    $sql = "DELETE FROM users WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
 });
 
 $app->run();

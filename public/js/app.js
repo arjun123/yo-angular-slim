@@ -1,5 +1,5 @@
 // Declare app level module which depends on filters, and services
-angular.module('slimproject', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date'])
+angular.module('slimproject', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date', 'ngResource'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -20,7 +20,7 @@ angular.module('slimproject', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date
         .when('/add', {
           templateUrl: 'views/user/add-user.html',
           controller: 'AddController'})
-        .when('/edit', {
+        .when('/edit/:id', {
           templateUrl: 'views/user/edit.html',
           controller: 'EditController'})
       .otherwise({redirectTo: '/'});

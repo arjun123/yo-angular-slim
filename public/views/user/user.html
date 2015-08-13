@@ -6,6 +6,7 @@
       <th>First Name</th>
       <th>Last Name</th>
       <th>Address</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,12 @@
       <td>{{user.first_name}}</td>
       <td>{{user.last_name}}</td>
       <td>{{user.address}}</td>
+      <td>
+          <a ng-href="#/edit/{{user.id}}" class="btn btn-default btn-primary margin-right-10">
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+          </a>
+          <button ng-click="deleteUser(user.id)" ng-show="!isNew()" class="btn btn-danger margin-right-10">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
