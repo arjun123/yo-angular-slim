@@ -48,7 +48,20 @@ $app->get('/contact', function() {
       }
 });
 
-
+$app->get('/users/:id', function($id) {
+    $sql = "SELECT * FROM users WHERE id=:id";
+      try {
+        $db = getConnection();
+  		$stmt = $db->prepare($sql);
+  		$stmt->bindParam("id", $id);
+  		$stmt->execute();
+  		$user = $stmt->fetchObject();
+  		$db = null;
+  		echo json_encode($user);
+      } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+      }
+});
 
 $app->get('/users', function() {
     $sql = "select * FROM users ORDER BY id";

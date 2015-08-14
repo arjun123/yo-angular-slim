@@ -82,6 +82,12 @@ angular.module('slimproject')
 angular.module('slimproject')
 .controller('EditController', ['$routeParams', '$resource', '$scope', '$http', '$location', '$window', function ($routeParams, $resource, $scope, $http, $location, $window) {
     var userId = $routeParams.id;
+    if (userId) {
+        var User = $resource('/users/:id', { id: userId });
+
+        // Get User from API
+        $scope.user = User.get();
+    }
     console.log('user id:'+userId);
     //triger while clicking update button
     $scope.updateUser = function() {
@@ -89,6 +95,7 @@ angular.module('slimproject')
 
         User.update($scope.user,
             function(data) {
+                alert('test0');
                 console.log(data);
                 // success
                 $location.path('/users');
@@ -98,6 +105,8 @@ angular.module('slimproject')
                 console.log(error);
             }
         );
+        //@todo resolve issue why execute code inside success
+        $location.path('/users');
     }
 
     // $http.put('/edit/:id', 1).success(function(data) {
