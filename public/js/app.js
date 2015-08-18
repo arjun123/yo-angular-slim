@@ -1,5 +1,5 @@
 // Declare app level module which depends on filters, and services
-angular.module('slimproject', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date', 'ngResource'])
+angular.module('slimproject', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ui.date', 'ngResource', 'ngSanitize'])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {

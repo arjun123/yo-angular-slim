@@ -4,7 +4,7 @@ angular.module('slimproject')
 
 angular.module('slimproject')
 .controller('ContactController', ['$scope', '$http', function ($scope, $http) {
-    $scope.message = 'Look! I am an contact page.';
+    $scope.message = '<a href="#">Look! I am an contact page.</a>';
     console.log('test');
  //    $http.get('index.php/contact').success(function(data) {
  //   $scope.users = data;
